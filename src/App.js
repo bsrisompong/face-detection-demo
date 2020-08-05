@@ -34,6 +34,7 @@ function App() {
   const [box, setBox] = useState({})
   const [boxes, setBoxes] = useState([])
   const [route, setRoute] = useState('signin') // keep track of where we are on the page.
+  const [isSignedIn, setSignedIn] = useState(false) // keep track of where we are on the page.
 
   const calcualteFaceLocation = (data) => {
     console.log({ data })
@@ -81,13 +82,15 @@ function App() {
   }
 
   const onRouteChange = (route) => {
+    if (route === 'signin') setSignedIn(false)
+    else if (route === 'home') setSignedIn(true)
     setRoute(route)
   }
 
   return (
     <div className="App">
       <Particles className="particles" params={particlesOptions} />
-      <Navigaiton onRouteChange={onRouteChange} />
+      <Navigaiton isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
       {route === 'home' ? (
         <Fragment>
           <Logo />
